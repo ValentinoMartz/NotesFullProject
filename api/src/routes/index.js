@@ -84,7 +84,7 @@ router.put("/notas/:id", async (req, res) => {
       nombre: tag
     }}); */
 
-    res.status(200).json(editNota); // Anda bien, lo unico no muestra el objeto borrado.
+    res.status(200).json(editNota); // Anda bien, lo unico no muestra el objeto borrado
   } catch (err) {
     res.status(400).json(err);
   }
