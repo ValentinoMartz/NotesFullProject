@@ -31,7 +31,7 @@ router.delete("/:id", async (req, res) => {
   res.status(200).send("Borrado con exito, Vale");
 });
 
-//POST NOTA
+//POST NOTA -- si no tiene etiqueta no funca
 router.post("/", async (req, res) => {
   let { titulo, descripcion, tag } = req.body;
   let [nota, created] = await Notes.findOrCreate({
@@ -70,7 +70,7 @@ router.put("/:id", async (req, res) => {
     });
     await editNota.save();
 
-    /*  let tagBuscado = await Tags.findOne({
+    /*  let tagBuscado = await Tags.findOne({ 
         where: {
           nombre: tag,
         },
@@ -80,7 +80,7 @@ router.put("/:id", async (req, res) => {
         nombre: tag
       }}); */
 
-    res.status(200).json(editNota); // Anda bien, lo unico no muestra el objeto borrado
+    res.status(200).json(editNota); //
   } catch (err) {
     res.status(400).json(err);
   }
