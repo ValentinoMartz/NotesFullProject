@@ -5,6 +5,18 @@ const router = Router();
 const axios = require("axios");
 const { Notes, Tags } = require("../db.js");
 
+
+let createTag = async(nombre) => {
+
+  let [tag, created] = await Tags.findOrCreate({
+    where: {
+      nombre : nombre,
+    },
+  });
+
+  return tag
+}
+
 //GET ALL
 router.get("/", async (req, res) => {
   let notas = await Notes.findAll({
@@ -41,15 +53,11 @@ router.post("/", async (req, res) => {
       descripcion,
     },
   });
-  console.log(created, "si sirvio");
-  //trambolico
-  let tagBuscado = await Tags.findAll({
-    where: {
-      nombre: tag,
-    },
-  });
-  console.log(tagBuscado);
-  nota.addTags(tagBuscado);
+
+  let result = await createTag(tag)
+
+ let add = await nota.addTags(result);
+  
 
   res.status(200).json(nota);
 });
@@ -77,7 +85,7 @@ router.put("/:id", async (req, res) => {
         },
       });
   
-      await tagBuscado.update({where:{
+      await tagBuscado.update({where:{ 
         nombre: tag
       }}); */
 
