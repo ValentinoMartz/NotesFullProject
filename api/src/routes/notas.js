@@ -5,6 +5,18 @@ const router = Router();
 const axios = require("axios");
 const { Notes, Tags } = require("../db.js");
 
+
+let createTag = async(nombre) => {
+
+  let [tag, created] = await Tags.findOrCreate({
+    where: {
+      nombre : nombre,
+    },
+  });
+
+  return tag
+}
+
 //GET ALL
 router.get("/", async (req, res) => {
   let notas = await Notes.findAll({
@@ -31,7 +43,7 @@ router.delete("/:id", async (req, res) => {
   res.status(200).send("Borrado con exito, Vale");
 });
 
-//POST NOTA
+//POST NOTA -- si no tiene etiqueta no funca
 router.post("/", async (req, res) => {
   let { titulo, descripcion, tag } = req.body;
   let [nota, created] = await Notes.findOrCreate({
@@ -40,15 +52,11 @@ router.post("/", async (req, res) => {
       descripcion,
     },
   });
-  console.log(created, "si sirvio");
-  //trambolico
-  let tagBuscado = await Tags.findAll({
-    where: {
-      nombre: tag,
-    },
-  });
-  console.log(tagBuscado);
-  nota.addTags(tagBuscado);
+
+  let result = await createTag(tag)
+
+ let add = await nota.addTags(result);
+  
 
   res.status(200).json(nota);
 });
@@ -70,17 +78,17 @@ router.put("/:id", async (req, res) => {
     });
     await editNota.save();
 
-    /*  let tagBuscado = await Tags.findOne({
+    /*  let tagBuscado = await Tags.findOne({ 
         where: {
           nombre: tag,
         },
       });
   
-      await tagBuscado.update({where:{
+      await tagBuscado.update({where:{ 
         nombre: tag
       }}); */
 
-    res.status(200).json(editNota); // Anda bien, lo unico no muestra el objeto borrado
+    res.status(200).json(editNota); //
   } catch (err) {
     res.status(400).json(err);
   }
