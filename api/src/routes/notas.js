@@ -46,6 +46,7 @@ router.delete("/:id", async (req, res) => {
 //POST NOTA -- si no tiene etiqueta no funca
 router.post("/", async (req, res) => {
   let { titulo, descripcion, tag } = req.body;
+
   let [nota, created] = await Notes.findOrCreate({
     where: {
       titulo,
