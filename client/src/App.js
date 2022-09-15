@@ -1,16 +1,14 @@
-import "./App.css";
-import Typography from "@mui/material/Typography";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
-import { Box } from "@mui/material";
+
+import Home from "./Components/Home";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
-    <Box>
-      <Typography variant="h1" textAlign="center">
-        Hola
-      </Typography>
-      <TagFacesIcon alignItem="center" justifyContent="center" />
-    </Box>
+    <div>
+    <Navbar/>
+    <Home/>
+    </div>
+    
   );
 }
 
