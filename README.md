@@ -6,7 +6,8 @@ Implementation exercise
 
 - Phase 1: note creation
 - Phase 2: tag application and filtering
-  IMPORTANT CONSIDERATIONS:
+
+ IMPORTANT CONSIDERATIONS:
 - Phase 1 is mandatory to pass this exercise, while Phase 2 will provide extra points if done.
 - Content should be persisted in a relational database by using an ORM - in-memory
   storage or mocks are not allowed.
