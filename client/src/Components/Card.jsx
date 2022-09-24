@@ -15,6 +15,7 @@ function Card({ descripcion, titulo, id }) {
     e.preventDefault();
     dispatch(deleteNote(id));
     dispatch(getAllNotes());
+
     history("/");
   }
   return (
