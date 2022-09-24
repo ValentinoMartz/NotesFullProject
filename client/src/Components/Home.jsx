@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes } from "../../src/redux/actions/index";
+import Card from "./Card";
 
 function Home() {
   const dispatch = useDispatch();
@@ -14,10 +15,16 @@ function Home() {
 
   return (
     <div>
-      Home
-       {allNotes &&
-        allNotes.map((e) => {
-          return console.log();
+      {allNotes &&
+        allNotes.map((e, index) => {
+          return (
+            <Card
+              titulo={e.titulo}
+              descripcion={e.descripcion}
+              id={e.id}
+              key={index.id}
+            />
+          );
         })}
     </div>
   );
