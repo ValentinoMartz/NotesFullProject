@@ -15,10 +15,10 @@ function Home() {
   return (
     <div>
       Home
-      {/* {allNotes &&
+       {allNotes &&
         allNotes.map((e) => {
           return console.log();
-        })} */}
+        })}
     </div>
   );
 }
