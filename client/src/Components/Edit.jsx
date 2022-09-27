@@ -2,22 +2,22 @@ import * as React from "react";
 
 import {
   Box,
-  Fab,
-  Tooltip,
   TextField,
   Typography,
   Modal,
   Button,
+  IconButton,
   FormGroup,
 } from "@mui/material";
-import { Add as AddIcon } from "@mui/icons-material";
+
 import SaveIcon from "@mui/icons-material/Save";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import EditIcon from "@mui/icons-material/Edit";
 
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { postNote } from "../redux/actions";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { editNote, postNote } from "../redux/actions";
 
 const style = {
   position: "absolute",
@@ -30,54 +30,17 @@ const style = {
   p: 4,
 };
 
-/* const styleModal = styled(Modal)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}); */
-
-export default function BasicModal() {
+export default function Edit() {
   const dispatch = useDispatch();
-  const history = useNavigate();
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [input, setInput] = useState({
-    titulo: "",
-    descripcion: "",
-  });
-
-  function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(postNote(input));
-    // history("/");
-    // window.location.reload();
-  }
 
   return (
     <Box textAlign="center" mt={6}>
-      <Tooltip
-        onClick={(e) => setOpen(true)}
-        title="Agregar una nota"
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          left: { xs: "calc(50% - 25px)", md: 30 },
-        }}
-      >
-        <Fab color="primary" aria-label="add">
-          <AddIcon />
-        </Fab>
-      </Tooltip>
+      <IconButton aria-label="edit" onClick={(e) => setOpen(true)}>
+        <EditIcon />
+      </IconButton>
 
       <Modal
         open={open}
@@ -85,7 +48,7 @@ export default function BasicModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form>
           <FormGroup sx={style}>
             <Typography
               variant="h6"
@@ -99,9 +62,6 @@ export default function BasicModal() {
               id="demo-helper-text-aligned"
               label="Titulo"
               type="text"
-              name="titulo"
-              value={input.titulo}
-              onChange={(e) => handleChange(e)}
               sx={{ width: "100%", marginTop: 2 }}
             />
 
@@ -109,9 +69,6 @@ export default function BasicModal() {
               id="demo-helper-text-aligned"
               label="Descripcion"
               type="text"
-              name="descripcion"
-              value={input.descripcion}
-              onChange={(e) => handleChange(e)}
               sx={{
                 width: "100%",
                 marginTop: 2,

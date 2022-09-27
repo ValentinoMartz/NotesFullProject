@@ -1,6 +1,8 @@
 import{
     GET_ALL_NOTES,
-    DELETE_NOTE
+    POST_NOTE,
+    DELETE_NOTE,
+    EDIT_NOTE,
 } from "../actions/action_types"
 
 const initialState ={
@@ -12,9 +14,19 @@ export default function reducer(state = initialState, { type, payload }) {
             ...state,
             notas:payload,
         }
+
+        case POST_NOTE: return {
+            ...state,
+        }
+
         case DELETE_NOTE: return{
             ...state
         }
+        case EDIT_NOTE: return {
+            ...state,
+            notas:payload
+
+        } 
 
         default:
         return state;

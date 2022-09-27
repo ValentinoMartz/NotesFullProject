@@ -1,11 +1,15 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteNote, getAllNotes } from "../../src/redux/actions/index";
+import {
+  deleteNote,
+  editNote,
+  getAllNotes,
+} from "../../src/redux/actions/index";
 import { useNavigate } from "react-router-dom";
+import Edit from "./Edit";
 
 function Card({ descripcion, titulo, id }) {
   const dispatch = useDispatch();
@@ -16,16 +20,21 @@ function Card({ descripcion, titulo, id }) {
     dispatch(deleteNote(id));
     dispatch(getAllNotes());
 
+    window.location.reload();
     history("/");
   }
+
+  function handleEdit(e) {
+    e.preventDefault();
+    dispatch(editNote(id));
+  }
+
   return (
     <Box textAlign="center" mt={6}>
       <IconButton onClick={(e) => handleDelete(e)} aria-label="delete">
         <DeleteIcon />
       </IconButton>
-      <IconButton aria-label="edit">
-        <EditIcon />
-      </IconButton>
+      <Edit handleEdit={handleEdit} />
       <Typography variant="h3" color="secondary">
         {titulo}
       </Typography>

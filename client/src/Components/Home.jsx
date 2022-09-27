@@ -7,7 +7,6 @@ import Card from "./Card";
 function Home() {
   const dispatch = useDispatch();
   const allNotes = useSelector((state) => state.notas);
-  console.log(allNotes);
 
   useEffect(() => {
     dispatch(getAllNotes());
@@ -15,17 +14,16 @@ function Home() {
 
   return (
     <div>
-      {allNotes &&
-        allNotes.map((e, index) => {
-          return (
-            <Card
-              titulo={e.titulo}
-              descripcion={e.descripcion}
-              id={e.id}
-              key={index.id}
-            />
-          );
-        })}
+      {allNotes?.map((e) => {
+        return (
+          <Card
+            titulo={e.titulo}
+            descripcion={e.descripcion}
+            id={e.id}
+            key={e.id}
+          />
+        );
+      })}
     </div>
   );
 }
